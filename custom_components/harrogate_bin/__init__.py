@@ -1,0 +1,1 @@
+"""Harrogate Bin Day Custom Component."""
