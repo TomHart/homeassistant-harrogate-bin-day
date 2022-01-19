@@ -1,21 +1,21 @@
 """GitHub sensor platform."""
 import logging
 import random
-import re
+# import re
 from datetime import timedelta
 from typing import Any, Callable, Dict, Optional
-from urllib import parse
+# from urllib import parse
 
-import gidgethub
+# import gidgethub
 import voluptuous as vol
 from aiohttp import ClientError
-from gidgethub.aiohttp import GitHubAPI
+# from gidgethub.aiohttp import GitHubAPI
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import (
     CONF_ID,
 )
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
+# from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.typing import (
@@ -75,6 +75,7 @@ class BinDaySensor(Entity):
 
     def __init__(self, name: str):
         super().__init__()
+        self.attrs: Dict[str, Any] = {}
         self._name = name
         self._state = None
         self._available = True
@@ -87,7 +88,7 @@ class BinDaySensor(Entity):
     @property
     def unique_id(self) -> str:
         """Return the unique ID of the sensor."""
-        return self.repo
+        return self.name
 
     @property
     def available(self) -> bool:
