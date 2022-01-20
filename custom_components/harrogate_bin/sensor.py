@@ -1,21 +1,15 @@
 """GitHub sensor platform."""
-import logging
-import random
 # import re
 from datetime import timedelta
+import logging
+import random
 from typing import Any, Callable, Dict, Optional
-# from urllib import parse
 
-# import gidgethub
-import voluptuous as vol
-from aiohttp import ClientError
-# from gidgethub.aiohttp import GitHubAPI
-
-from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.const import (
-    CONF_ID,
-)
 # from homeassistant.helpers.aiohttp_client import async_get_clientsession
+# import gidgethub
+from aiohttp import ClientError
+from homeassistant.components.sensor import PLATFORM_SCHEMA
+from homeassistant.const import CONF_ID
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.typing import (
@@ -23,10 +17,13 @@ from homeassistant.helpers.typing import (
     DiscoveryInfoType,
     HomeAssistantType,
 )
+import voluptuous as vol
 
-from .const import (
-    ATTR_TEST
-)
+from .const import ATTR_TEST
+
+# from urllib import parse
+
+# from gidgethub.aiohttp import GitHubAPI
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -38,6 +35,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Required(CONF_ID): cv.positive_int,
     }
 )
+
 
 # LINK_RE = re.compile(
 #     r"\<(?P<uri>[^>]+)\>;\s*" r'(?P<param_type>\w+)="(?P<param_value>\w+)"(,\s*)?'
@@ -57,12 +55,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 #         return None
 
 
-async def async_setup_platform(
-    hass: HomeAssistantType,
-    config: ConfigType,
-    async_add_entities: Callable,
-    discovery_info: Optional[DiscoveryInfoType] = None,
-) -> None:
+async def async_setup_platform(async_add_entities: Callable) -> None:
     """Set up the sensor platform."""
     # session = async_get_clientsession(hass)
     # github = GitHubAPI(session, "requester", oauth_token=config[CONF_ACCESS_TOKEN])
@@ -106,7 +99,7 @@ class BinDaySensor(Entity):
     async def async_update(self):
         try:
 
-            self.attrs[ATTR_TEST] = random.choice([1, 2, 3])
+            self.attrs[ATTR_TEST] = 3
 
             # Set state.
             self._state = 'abcdef'
