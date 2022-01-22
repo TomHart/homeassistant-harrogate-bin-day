@@ -75,7 +75,7 @@ class BinDaySensor(Entity):
         return self._state
 
     @property
-    def device_state_attributes(self) -> Dict[str, Any]:
+    def extra_state_attributes(self) -> Dict[str, Any]:
         return self.attrs
 
     async def update(self):
