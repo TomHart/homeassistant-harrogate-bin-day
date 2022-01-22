@@ -21,11 +21,6 @@ import voluptuous as vol
 
 from .const import ATTR_TEST
 
-# from urllib import parse
-
-# from gidgethub.aiohttp import GitHubAPI
-
-
 _LOGGER = logging.getLogger(__name__)
 # Time between updating data from GitHub
 SCAN_INTERVAL = timedelta(minutes=10)
@@ -36,29 +31,13 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     }
 )
 
-
-# LINK_RE = re.compile(
-#     r"\<(?P<uri>[^>]+)\>;\s*" r'(?P<param_type>\w+)="(?P<param_value>\w+)"(,\s*)?'
-# )
-#
-#
-# def get_last_page_url(link: Optional[str]) -> Optional[str]:
-#     # https://developer.github.com/v3/#pagination
-#     # https://tools.ietf.org/html/rfc5988
-#     if link is None:
-#         return None
-#     for match in LINK_RE.finditer(link):
-#         if match.group("param_type") == "rel":
-#             if match.group("param_value") == "last":
-#                 return match.group("uri")
-#     else:
-#         return None
-
-
-async def async_setup_platform(async_add_entities: Callable) -> None:
+async def async_setup_platform(
+    hass: HomeAssistantType,
+    config: ConfigType,
+    async_add_entities: Callable,
+    discovery_info: Optional[DiscoveryInfoType] = None
+) -> None:
     """Set up the sensor platform."""
-    # session = async_get_clientsession(hass)
-    # github = GitHubAPI(session, "requester", oauth_token=config[CONF_ACCESS_TOKEN])
     sensors = [BinDaySensor("sensor_name")]
     async_add_entities(sensors, update_before_add=True)
 
