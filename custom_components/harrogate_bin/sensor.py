@@ -28,6 +28,7 @@ SCAN_INTERVAL = timedelta(minutes=10)
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_ID): cv.positive_int,
+        vol.Required(CONF_NAME): cv.string,
     }
 )
 
