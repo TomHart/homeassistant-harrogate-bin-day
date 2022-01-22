@@ -34,7 +34,3 @@ class BinDay:
     @staticmethod
     def get_bin_type(row, cell) -> str:
         return row.find_all('th')[cell].get_text().lstrip('\\r\\n').strip()
-
-
-bin = BinDay(100050415607)
-print(bin.get_next_bin_day())
