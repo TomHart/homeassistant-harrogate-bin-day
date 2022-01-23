@@ -78,7 +78,7 @@ class BinDaySensor(Entity):
     def extra_state_attributes(self) -> Dict[str, Any]:
         return self.attrs
 
-    async def update(self):
+    def update(self):
         next_day = self._bin_day.get_next_bin_day()
         self.attrs[ATTR_TYPE] = next_day[1]
 
