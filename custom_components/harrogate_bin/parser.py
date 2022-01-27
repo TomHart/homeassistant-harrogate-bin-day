@@ -1,6 +1,4 @@
-from datetime import datetime, time
-import os
-from typing import Tuple
+from datetime import datetime
 
 from bs4 import BeautifulSoup
 import requests

@@ -1,6 +1,6 @@
 """GitHub sensor platform."""
 # import re
-from datetime import timedelta
+from datetime import datetime, timedelta
 import logging
 from typing import Any, Callable, Dict, Optional
 
@@ -18,7 +18,7 @@ from homeassistant.helpers.typing import (
 )
 import voluptuous as vol
 
-from .const import ATTR_TYPE
+from .const import ATTR_HOURS_UNTIL, ATTR_TYPE
 from .parser import BinDay
 
 _LOGGER = logging.getLogger(__name__)
@@ -78,9 +78,14 @@ class BinDaySensor(Entity):
     def extra_state_attributes(self) -> Dict[str, Any]:
         return self.attrs
 
+    @staticmethod
+    def _get_hours_until(date: datetime) -> int:
+        return divmod((date - datetime.now()).total_seconds(), 3600)[0]
+
     def update(self):
         next_day = self._bin_day.get_next_bin_day()
         self.attrs[ATTR_TYPE] = next_day[1]
+        self.attrs[ATTR_HOURS_UNTIL] = self._get_hours_until(next_day[0])
 
         # Set state.
         self._state = next_day[0]
