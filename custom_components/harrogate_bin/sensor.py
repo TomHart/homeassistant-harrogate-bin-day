@@ -1,24 +1,17 @@
-"""GitHub sensor platform."""
-# import re
+"""Bin Day sensor platform."""
+
 from datetime import datetime, timedelta
 import logging
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Dict, Optional
 
-# from homeassistant.helpers.aiohttp_client import async_get_clientsession
-# import gidgethub
-from aiohttp import ClientError
+from homeassistant import config_entries, core
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import CONF_ID, CONF_NAME
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.typing import (
-    ConfigType,
-    DiscoveryInfoType,
-    HomeAssistantType,
-)
 import voluptuous as vol
 
-from .const import ATTR_HOURS_UNTIL, ATTR_TYPE
+from .const import ATTR_HOURS_UNTIL, ATTR_TYPE, DOMAIN
 from .parser import BinDay
 
 _LOGGER = logging.getLogger(__name__)
@@ -33,13 +26,13 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 )
 
 
-async def async_setup_platform(
-        hass: HomeAssistantType,
-        config: ConfigType,
-        async_add_entities: Callable,
-        discovery_info: Optional[DiscoveryInfoType] = None
-) -> None:
-    """Set up the sensor platform."""
+async def async_setup_entry(
+    hass: core.HomeAssistant,
+    config_entry: config_entries.ConfigEntry,
+    async_add_entities,
+):
+    """Setup sensors from a config entry created in the integrations UI."""
+    config = hass.data[DOMAIN][config_entry.entry_id]
     sensors = [BinDaySensor(config[CONF_NAME], config[CONF_ID])]
     async_add_entities(sensors, update_before_add=True)
 
