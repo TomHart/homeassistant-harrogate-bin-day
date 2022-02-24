@@ -1,7 +1,7 @@
 {
   "config": {
     "step": {
-      "home": {
+      "user": {
         "data": {
           "id": "Home UPRN",
           "name": "Friendly name for home"
