@@ -1,0 +1,14 @@
+{
+  "config": {
+    "step": {
+      "home": {
+        "data": {
+          "id": "Home UPRN",
+          "name": "Friendly name for home"
+        },
+        "description": "Enter your details",
+        "title": "Details"
+      }
+    }
+  }
+}
