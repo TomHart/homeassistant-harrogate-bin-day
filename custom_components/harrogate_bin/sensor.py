@@ -6,7 +6,7 @@ from typing import Any, Dict, Optional
 
 from homeassistant import config_entries, core
 from homeassistant.components.sensor import PLATFORM_SCHEMA
-from homeassistant.const import CONF_ID, CONF_NAME
+from homeassistant.const import CONF_ID, CONF_NAME, CONF_SCAN_INTERVAL
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
 import voluptuous as vol
@@ -20,6 +20,7 @@ SCAN_INTERVAL = timedelta(minutes=10)
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
+        vol.Optional(CONF_SCAN_INTERVAL, default=SCAN_INTERVAL): cv.time_period,
         vol.Required(CONF_ID): cv.positive_int,
         vol.Required(CONF_NAME): cv.string,
     }
