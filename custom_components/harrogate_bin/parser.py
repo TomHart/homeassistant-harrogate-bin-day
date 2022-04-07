@@ -26,7 +26,7 @@ class BinDay:
 
     @staticmethod
     def get_bin_day_from_row(row, cell) -> datetime:
-        next_day = row.find_all('td')[cell].get_text().lstrip('\\r\\n').strip()
+        next_day = row.find_all('td')[cell].get_text().lstrip('\\r\\n').strip()[:15]
         return datetime.strptime(next_day + " 07", '%a %d %b %Y %H')
 
     @staticmethod
