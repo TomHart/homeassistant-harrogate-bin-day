@@ -1,5 +1,8 @@
 {
-  "name": "Bin Day",
+  "name": "Harrogate - Bin Day",
   "render_readme": true,
-  "iot_class": "cloud_polling"
+  "iot_class": "cloud_polling",
+  "homeassistant": "2024.5.0",
+  "zip_release": true,
+  "filename": "harrogate_bin.zip"
 }
