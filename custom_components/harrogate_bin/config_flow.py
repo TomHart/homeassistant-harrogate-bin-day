@@ -18,6 +18,11 @@ PLATFORM_SCHEMA = vol.Schema(
 )
 
 
+def platform_schema(domain: str) -> vol.Schema:
+    """Generate config schema."""
+    return PLATFORM_SCHEMA
+
+
 class BinDayCustomConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Bin Day Custom config flow."""
 
