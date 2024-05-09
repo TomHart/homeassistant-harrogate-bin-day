@@ -2,10 +2,20 @@
 import logging
 
 from homeassistant import config_entries, core
+from homeassistant.const import CONF_ID, CONF_NAME
+import homeassistant.helpers.config_validation as cv
+import voluptuous as vol
 
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
+
+PLATFORM_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_ID): cv.positive_int,
+        vol.Required(CONF_NAME): cv.string,
+    }
+)
 
 
 async def async_setup_entry(

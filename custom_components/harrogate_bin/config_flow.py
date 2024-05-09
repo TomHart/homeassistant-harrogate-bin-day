@@ -2,25 +2,11 @@ import logging
 from typing import Any, Dict, Optional
 
 from homeassistant import config_entries
-from homeassistant.const import CONF_ID, CONF_NAME
-import homeassistant.helpers.config_validation as cv
-import voluptuous as vol
 
+from . import PLATFORM_SCHEMA
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
-
-PLATFORM_SCHEMA = vol.Schema(
-    {
-        vol.Required(CONF_ID): cv.positive_int,
-        vol.Required(CONF_NAME): cv.string,
-    }
-)
-
-
-def platform_schema(domain: str) -> vol.Schema:
-    """Generate config schema."""
-    return PLATFORM_SCHEMA
 
 
 class BinDayCustomConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
