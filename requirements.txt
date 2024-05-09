@@ -1,2 +1,5 @@
-homeassistant
-voluptuous
+bs4~=0.0.2
+homeassistant~=2024.3.3
+voluptuous~=0.13.1
+requests~=2.31.0
+beautifulsoup4~=4.12.3

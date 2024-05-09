@@ -13,11 +13,15 @@ class BinDay:
         parsed_html = BeautifulSoup(self.get_page_html(), features="html.parser")
         rows = parsed_html.body.find_all('table', attrs={'class': 'hbcRounds'})
 
-        timestamp = self.get_bin_day_from_row(rows[1], 0)
-        if timestamp <= datetime.now():
-            return self.get_bin_day_from_row(rows[1], 1), self.get_bin_type(rows[1], 1)
+        if len(rows) == 0:
+            raise Exception("No rows found in the HTML")
 
-        return timestamp, self.get_bin_type(rows[1], 0)
+        row_index = len(rows) - 1
+        timestamp = self.get_bin_day_from_row(rows[row_index], 0)
+        if timestamp <= datetime.now():
+            return self.get_bin_day_from_row(rows[row_index], 1), self.get_bin_type(rows[row_index], 1)
+
+        return timestamp, self.get_bin_type(rows[row_index], 0)
 
     def get_page_html(self) -> str:
         return requests.get(

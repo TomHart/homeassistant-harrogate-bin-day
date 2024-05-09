@@ -1,4 +1,5 @@
 -r requirements.txt
-pytest
-pytest-cov
+pytest~=8.0.2
+pytest-asyncio
+pytest-mock
 pytest-homeassistant-custom-component
