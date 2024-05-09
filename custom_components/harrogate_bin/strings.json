@@ -12,6 +12,9 @@
     }
   },
   "services": {
-    "taken_out": "Bin Taken Out"
+    "bin_taken_out": {
+      "name": "Bin Taken Out",
+      "description": "Mark a bin as taken out"
+    }
   }
 }
