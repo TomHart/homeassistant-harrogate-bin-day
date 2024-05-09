@@ -17,6 +17,8 @@ PLATFORM_SCHEMA = vol.Schema(
     }
 )
 
+PLATFORMS = ["input_boolean"]
+
 
 async def async_setup_entry(
     hass: core.HomeAssistant, entry: config_entries.ConfigEntry
