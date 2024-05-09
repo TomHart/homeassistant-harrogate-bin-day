@@ -3,7 +3,7 @@ name: "Draft a release note"
 
 on:
   push:
-    branches: ["main", "release"]
+    branches: ["main", "release", "update_release_process"]
 
 permissions:
   contents: read
