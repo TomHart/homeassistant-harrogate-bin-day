@@ -11,7 +11,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import Entity
 import voluptuous as vol
 
-from .const import ATTR_HOURS_UNTIL, ATTR_TYPE, DOMAIN
+from .const import ATTR_HOURS_UNTIL, ATTR_TYPE, DOMAIN, ATTR_NOTE
 from .parser import BinDay
 
 _LOGGER = logging.getLogger(__name__)
@@ -80,6 +80,7 @@ class BinDaySensor(Entity):
         next_day = self._bin_day.get_next_bin_day()
         self.attrs[ATTR_TYPE] = next_day[1]
         self.attrs[ATTR_HOURS_UNTIL] = self._get_hours_until(next_day[0])
+        self.attrs[ATTR_NOTE] = next_day[2] or None
 
         # Set state.
         self._state = next_day[0]
