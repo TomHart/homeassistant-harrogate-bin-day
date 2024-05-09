@@ -13,6 +13,7 @@
   },
   "services": {
     "taken_out": {
+      "name": "Bin Taken Out",
       "description": "Mark a bin as taken out"
     }
   }
