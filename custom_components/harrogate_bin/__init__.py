@@ -35,4 +35,12 @@ async def async_setup_entry(
 async def async_setup(hass: core.HomeAssistant, config: dict) -> bool:
     """Set up the Bin Day Custom component from yaml configuration."""
     hass.data.setdefault(DOMAIN, {})
+
+    def handle_taken_out(call):
+        """Handle the service call."""
+        name = call.data.get('name', None)
+
+        hass.states.set("bin_day.taken_out", name)
+
+    hass.services.register(DOMAIN, "taken_out", handle_taken_out)
     return True

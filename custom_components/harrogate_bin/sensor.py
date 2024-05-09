@@ -88,3 +88,6 @@ class BinDaySensor(Entity):
         # Set state.
         self._state = next_day[0]
         self._available = True
+
+    def mark_taken_out(self):
+        self.attrs[ATTR_TAKEN_OUT] = True
