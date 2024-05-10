@@ -7,7 +7,7 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.helpers import entity_platform
 
-from .const import DOMAIN
+from .const import DOMAIN, PLATFORMS
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -17,8 +17,6 @@ PLATFORM_SCHEMA = vol.Schema(
         vol.Required(CONF_NAME): cv.string,
     }
 )
-
-PLATFORMS = [DOMAIN]
 
 
 async def async_setup_entry(
@@ -33,8 +31,8 @@ async def async_setup_entry(
         hass.config_entries.async_forward_entry_setup(entry, "sensor")
     )
 
-    platform = entity_platform.async_get_current_platform()
-    platform.async_register_entity_service("bin_taken_out", {}, "mark_taken_out", )
+    platform = entity_platform.async_get_current_platform(hass)
+    platform.async_register_entity_service("bin_taken_out", {}, "mark_taken_out")
 
     return True
 

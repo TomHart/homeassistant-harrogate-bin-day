@@ -6,3 +6,5 @@ ATTR_TYPE: Final = "type"
 ATTR_HOURS_UNTIL: Final = "hours_until"
 ATTR_NOTE: Final = "note"
 ATTR_TAKEN_OUT: Final = "taken_out"
+
+# PLATFORMS = ['sensor']
