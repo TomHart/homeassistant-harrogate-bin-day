@@ -6,3 +6,9 @@ bin_taken_out:
     entity:
       domain: sensor
       integration: harrogate_bin
+
+bin_reset_taken_out:
+  target:
+    entity:
+      domain: sensor
+      integration: harrogate_bin

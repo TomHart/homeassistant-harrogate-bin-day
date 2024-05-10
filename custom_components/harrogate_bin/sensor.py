@@ -8,6 +8,7 @@ from homeassistant import config_entries, core
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import CONF_ID, CONF_NAME, CONF_SCAN_INTERVAL
 import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers import entity_platform
 from homeassistant.helpers.entity import Entity
 import voluptuous as vol
 
@@ -28,14 +29,18 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 
 async def async_setup_entry(
-    hass: core.HomeAssistant,
-    config_entry: config_entries.ConfigEntry,
-    async_add_entities,
+        hass: core.HomeAssistant,
+        config_entry: config_entries.ConfigEntry,
+        async_add_entities,
 ):
     """Setup sensors from a config entry created in the integrations UI."""
     config = hass.data[DOMAIN][config_entry.entry_id]
     sensors = [BinDaySensor(config[CONF_NAME], config[CONF_ID])]
     async_add_entities(sensors, update_before_add=True)
+
+    platform = entity_platform.async_get_current_platform()
+    platform.async_register_entity_service("bin_taken_out", {}, "mark_taken_out")
+    platform.async_register_entity_service("bin_reset_taken_out", {}, "reset_taken_out")
 
 
 class BinDaySensor(Entity):
@@ -91,3 +96,6 @@ class BinDaySensor(Entity):
 
     def mark_taken_out(self):
         self.attrs[ATTR_TAKEN_OUT] = True
+
+    def reset_taken_out(self):
+        self.attrs[ATTR_TAKEN_OUT] = False
