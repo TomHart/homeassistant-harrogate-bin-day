@@ -25,7 +25,7 @@ class TestBinDay(unittest.TestCase):
 
         assert timestamp.strftime('%a %d %b %Y %H:%M') == formatted_date + ' 07:00'
         assert bin_type == 'Garden'
-        assert note is None
+        assert note == 'Changed due to a bank holiday'
 
 
     @patch('requests.get')
@@ -65,7 +65,7 @@ class TestBinDay(unittest.TestCase):
 
         bin_day = BinDay(123456)
 
-        timestamp, bin_type = bin_day.get_next_bin_day()
+        timestamp, bin_type, _note = bin_day.get_next_bin_day()
 
         assert timestamp.strftime('%a %d %b %Y %H:%M') == tomorrow + ' 07:00'
         assert bin_type == 'Refuse'

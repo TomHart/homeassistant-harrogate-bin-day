@@ -8,10 +8,11 @@ from homeassistant import config_entries, core
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.const import CONF_ID, CONF_NAME, CONF_SCAN_INTERVAL
 import homeassistant.helpers.config_validation as cv
+from homeassistant.helpers import entity_platform
 from homeassistant.helpers.entity import Entity
 import voluptuous as vol
 
-from .const import ATTR_HOURS_UNTIL, ATTR_TYPE, DOMAIN, ATTR_NOTE
+from .const import ATTR_HOURS_UNTIL, ATTR_TYPE, DOMAIN, ATTR_NOTE, ATTR_TAKEN_OUT
 from .parser import BinDay
 
 _LOGGER = logging.getLogger(__name__)
@@ -28,14 +29,18 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 
 async def async_setup_entry(
-    hass: core.HomeAssistant,
-    config_entry: config_entries.ConfigEntry,
-    async_add_entities,
+        hass: core.HomeAssistant,
+        config_entry: config_entries.ConfigEntry,
+        async_add_entities,
 ):
     """Setup sensors from a config entry created in the integrations UI."""
     config = hass.data[DOMAIN][config_entry.entry_id]
     sensors = [BinDaySensor(config[CONF_NAME], config[CONF_ID])]
     async_add_entities(sensors, update_before_add=True)
+
+    platform = entity_platform.async_get_current_platform()
+    platform.async_register_entity_service("bin_taken_out", {}, "mark_taken_out")
+    platform.async_register_entity_service("bin_reset_taken_out", {}, "reset_taken_out")
 
 
 class BinDaySensor(Entity):
@@ -82,6 +87,15 @@ class BinDaySensor(Entity):
         self.attrs[ATTR_HOURS_UNTIL] = self._get_hours_until(next_day[0])
         self.attrs[ATTR_NOTE] = next_day[2] or None
 
+        if self._state != next_day[0]:
+            self.attrs[ATTR_TAKEN_OUT] = False
+
         # Set state.
         self._state = next_day[0]
         self._available = True
+
+    def mark_taken_out(self):
+        self.attrs[ATTR_TAKEN_OUT] = True
+
+    def reset_taken_out(self):
+        self.attrs[ATTR_TAKEN_OUT] = False

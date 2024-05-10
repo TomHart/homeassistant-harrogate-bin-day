@@ -1,0 +1,14 @@
+# Example services.yaml entry
+
+# Service ID
+bin_taken_out:
+  target:
+    entity:
+      domain: sensor
+      integration: harrogate_bin
+
+bin_reset_taken_out:
+  target:
+    entity:
+      domain: sensor
+      integration: harrogate_bin

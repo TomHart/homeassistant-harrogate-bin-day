@@ -1,10 +1,10 @@
 """Harrogate Bin Day Custom Component."""
 import logging
 
-from homeassistant import config_entries, core
-from homeassistant.const import CONF_ID, CONF_NAME
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
+from homeassistant import config_entries, core
+from homeassistant.const import CONF_ID, CONF_NAME
 
 from .const import DOMAIN
 
@@ -29,6 +29,7 @@ async def async_setup_entry(
     hass.async_create_task(
         hass.config_entries.async_forward_entry_setup(entry, "sensor")
     )
+
     return True
 
 
