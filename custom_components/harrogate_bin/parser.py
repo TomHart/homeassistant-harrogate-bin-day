@@ -24,6 +24,7 @@ class BinDay:
         if timestamp <= datetime.now():
             timestamp = self.get_bin_day_from_row(rows[row_index], 1)
             bin_type = self.get_bin_type(rows[row_index], 1)
+            note = self.get_note(rows[row_index], 1)
 
         return timestamp, bin_type, note
 
