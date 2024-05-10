@@ -7,7 +7,7 @@ import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
 from homeassistant.helpers import entity_platform
 
-from .const import DOMAIN, PLATFORMS
+from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
